@@ -1,0 +1,21 @@
+.main {
+	display: flex;
+	margin-top: 50px;
+	justify-content: center;
+	flex: 1 0 auto;
+
+	&__cards {
+		&-title {
+			display: block;
+			width: 100%;
+		}
+		flex-direction: column;
+		display: flex;
+		justify-content: center;
+		border: 1px solid black;
+		border-radius: 10%;
+		height: fit-content;
+		min-height: 200px;
+		list-style-position: inside;
+	}
+}

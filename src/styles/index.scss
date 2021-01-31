@@ -1,0 +1,11 @@
+@import 'variables.scss';
+
+@import 'header.scss';
+@import 'main.scss';
+@import 'footer.scss';
+
+.App {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
