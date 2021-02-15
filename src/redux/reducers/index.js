@@ -1,86 +1,89 @@
 import {
-	ADD_DEAL,
-	DELETE_DEAL,
-	COMPLETE_DEAL,
-	FILTER_DEAL,
-	DELETE_CARD,
-	ADD_CARD,
-} from '../types';
-import { combineReducers } from 'redux';
-import { findIndexById, findItemById } from '../../components/findIndex';
+  ADD_DEAL,
+  DELETE_DEAL,
+  COMPLETE_DEAL,
+  FILTER_DEAL,
+  DELETE_CARD,
+  ADD_CARD,
+} from "../types";
+import { combineReducers } from "redux";
+import { findIndexById, findItemById } from "../../components/findIndex";
 
 const cardState = [
-	{
-		title: 'test',
-		itemId: '1',
-		listDeal: [
-			{
-				id: 1,
-				deal: 'lear learn',
-				completed: false,
-			},
-		],
-	},
+  {
+    title: "test",
+    itemId: "1",
+    listDeal: [
+      {
+        id: 1,
+        deal: "lear learn",
+        completed: false,
+      },
+    ],
+  },
 ];
 
 const cardReducer = (state = cardState, action) => {
-	switch (action.type) {
-		case ADD_CARD: {
-			return [...state, action.payload];
-		}
-		case DELETE_CARD: {
-			const currentCard = findIndexById(state, action.payload.itemId);
-			const leftSide = state.slice(0, currentCard);
-			const rightSide = state.slice(currentCard + 1);
-			state = [...leftSide, ...rightSide];
-			console.log(leftSide, rightSide);
-			return [...state];
-		}
-		case ADD_DEAL: {
-			const currentItem = findIndexById(state, action.id);
-			state[currentItem].listDeal.push(action.payload);
-			return [...state];
-		}
+  switch (action.type) {
+    case ADD_CARD: {
+      return [...state, action.payload];
+    }
+    case DELETE_CARD: {
+      const currentCard = findIndexById(state, action.payload.itemId);
+      const leftSide = state.slice(0, currentCard);
+      const rightSide = state.slice(currentCard + 1);
+      state = [...leftSide, ...rightSide];
+      console.log(leftSide, rightSide);
+      return [...state];
+    }
+    case ADD_DEAL: {
+      const currentItem = findIndexById(state, action.id);
+      state[currentItem].listDeal.unshift(action.payload);
+      return [...state];
+    }
 
-		case DELETE_DEAL: {
-			const currentItem = findIndexById(state, action.payload.id);
-			const leftSide = state[currentItem].listDeal.slice(
-				0,
-				findItemById(state[currentItem].listDeal, action.payload.itemId),
-			);
+    case DELETE_DEAL: {
+      const currentItem = findIndexById(state, action.payload.id);
+      const leftSide = state[currentItem].listDeal.slice(
+        0,
+        findItemById(state[currentItem].listDeal, action.payload.itemId),
+      );
 
-			const rightSide = state[currentItem].listDeal.slice(
-				findItemById(state[currentItem].listDeal, action.payload.itemId) + 1,
-				state[currentItem].length,
-			);
-			console.log(leftSide, rightSide);
-			if (state[currentItem].listDeal.length > 1) {
-				state[currentItem].listDeal = [...leftSide, ...rightSide];
-			} else {
-				state[currentItem].listDeal = [...[]];
-			}
+      const rightSide = state[currentItem].listDeal.slice(
+        findItemById(state[currentItem].listDeal, action.payload.itemId) + 1,
+        state[currentItem].length,
+      );
+      console.log(leftSide, rightSide);
+      if (state[currentItem].listDeal.length > 1) {
+        state[currentItem].listDeal = [...leftSide, ...rightSide];
+      } else {
+        state[currentItem].listDeal = [...[]];
+      }
 
-			return [...state];
-		}
+      return [...state];
+    }
 
-		case COMPLETE_DEAL: {
-			const currentCard = findIndexById(state, action.payload.id);
-			let currentItem = findItemById(
-				state[findIndexById(state, action.payload.id)].listDeal,
-				action.payload.itemId,
-			);
-			if (currentItem === -1) {
-				currentItem = 0;
-			}
-			state[currentCard].listDeal[currentItem].completed = !state[currentCard]
-				.listDeal[currentItem].completed;
+    case COMPLETE_DEAL: {
+      const currentCard = findIndexById(state, action.payload.id);
+      let currentItem = findItemById(
+        state[findIndexById(state, action.payload.id)].listDeal,
+        action.payload.itemId,
+      );
+      if (currentItem === -1) {
+        currentItem = 0;
+      }
+      const item = state[currentCard].listDeal[currentItem];
+      item.completed = true;
 
-			return [...state];
-		}
+      state[currentCard].listDeal.splice(currentItem, 1);
+      state[currentCard].listDeal.push(item);
 
-		default:
-			return [...state];
-	}
+      return [...state];
+    }
+
+    default:
+      return [...state];
+  }
 };
 
 export const rootReducer = combineReducers({ cardReducer });
