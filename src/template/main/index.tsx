@@ -4,10 +4,10 @@ import CreateCards from './createCards.js'
 
 export const Main=()=>{
     return (
-        <main className='main'>
+        <main className='main' id='main'>
             
             <Cards/>
-            <CreateCards/>
+            <CreateCards title='Create Card'/>
         </main>
     )
 }

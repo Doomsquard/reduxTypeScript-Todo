@@ -8,6 +8,28 @@
 	min-width: 200px;
 
 	&__cards {
+		display: flex;
+		margin: 0 15px;
+		min-width: 200px;
+		flex-shrink: initial;
+		&-header {
+			display: flex;
+		}
+		&-delete {
+			cursor: pointer;
+		}
+		input {
+			border-radius: 4%;
+			border: 1px solid black;
+		}
+		&-items {
+			margin-top: 10px;
+			display: flex;
+			justify-content: space-between;
+			.bi-backspace {
+				cursor: pointer;
+			}
+		}
 		&-item {
 			cursor: pointer;
 		}
@@ -52,6 +74,24 @@
 			&:hover {
 				border: 1px solid black;
 			}
+		}
+	}
+}
+.completed {
+	text-decoration: line-through;
+}
+
+@media (max-width: 800px) {
+	.main {
+		max-width: 250px;
+		align-items: center;
+		margin: 0 auto;
+		padding: 30px;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		&__cards {
+			margin-top: 30px;
 		}
 	}
 }
