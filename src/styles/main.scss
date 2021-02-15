@@ -3,19 +3,95 @@
 	margin-top: 50px;
 	justify-content: center;
 	flex: 1 0 auto;
+	flex-basis: auto;
+	min-height: 150px;
+	min-width: 200px;
 
 	&__cards {
+		display: flex;
+		margin: 0 15px;
+		min-width: 200px;
+		flex-shrink: initial;
+		&-header {
+			display: flex;
+		}
+		&-delete {
+			cursor: pointer;
+		}
+		input {
+			border-radius: 4%;
+			border: 1px solid black;
+		}
+		&-items {
+			margin-top: 10px;
+			display: flex;
+			justify-content: space-between;
+			.bi-backspace {
+				cursor: pointer;
+			}
+		}
+		&-item {
+			cursor: pointer;
+		}
+
 		&-title {
-			display: block;
+			text-align: center;
 			width: 100%;
+			margin: 5px auto;
 		}
 		flex-direction: column;
 		display: flex;
-		justify-content: center;
-		border: 1px solid black;
-		border-radius: 10%;
+		padding: 0 30px;
+		// border: 1px solid black;
+		border-radius: 5%;
 		height: fit-content;
 		min-height: 200px;
+		min-width: 150px;
 		list-style-position: inside;
+		list-style-type: disc;
+		background-color: rgb(255, 255, 255);
+		box-shadow: 7px 7px 8px 0px rgba(34, 60, 80, 0.2);
+		&-list {
+			list-style-type: circle;
+		}
+	}
+
+	&__createCards {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		max-height: 150px;
+		margin: 0 20px;
+		&-button {
+			display: block;
+			margin: 10px auto;
+			border: none;
+			border-style: none;
+			cursor: pointer;
+			min-height: 30px;
+			min-width: 60px;
+			&:hover {
+				border: 1px solid black;
+			}
+		}
+	}
+}
+.completed {
+	text-decoration: line-through;
+}
+
+@media (max-width: 800px) {
+	.main {
+		max-width: 250px;
+		align-items: center;
+		margin: 0 auto;
+		padding: 30px;
+		justify-content: center;
+		display: flex;
+		flex-direction: column;
+		&__cards {
+			margin-top: 30px;
+		}
 	}
 }
